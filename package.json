@@ -1,0 +1,34 @@
+{
+  "name": "es6-snippets",
+  "version": "1.0.0",
+  "description": "es6-example-code",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack && node-sass ./scss -o ./css && exit 0",
+    "watch": "webpack --watch & node-sass --watch ./scss -o ./css",
+    "serve": "npm run watch & live-server"
+  },
+  "repository": {
+    "type": "git",
+    "url": "es6-snippets"
+  },
+  "keywords": [
+    "es6",
+    "code"
+  ],
+  "author": "anu",
+  "license": "ISC",
+  "devDependencies": {
+    "babel": "^6.23.0",
+    "babel-cli": "^6.24.1",
+    "babel-core": "^6.24.1",
+    "babel-loader": "^7.0.0",
+    "babel-preset-env": "^1.5.1",
+    "node-sass": "^4.5.3",
+    "webpack": "^2.6.1"
+  },
+  "dependencies": {
+    "jquery": "^3.2.1"
+  }
+}
