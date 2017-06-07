@@ -63,14 +63,48 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 0);
+/******/ 	return __webpack_require__(__webpack_require__.s = 2);
 /******/ })
 /************************************************************************/
 /******/ ([
 /* 0 */
 /***/ (function(module, exports) {
 
-throw new Error("Module build failed: Error: ENOENT: no such file or directory, open '/Users/aharibabu/Documents/ES6/es6-snippets/.babelrc'\n    at Error (native)\n    at Object.fs.openSync (fs.js:640:18)\n    at Object.fs.readFileSync (fs.js:508:33)\n    at ConfigChainBuilder.addConfig (/Users/aharibabu/Documents/ES6/es6-snippets/node_modules/babel-core/lib/transformation/file/options/build-config-chain.js:146:32)\n    at ConfigChainBuilder.findConfigs (/Users/aharibabu/Documents/ES6/es6-snippets/node_modules/babel-core/lib/transformation/file/options/build-config-chain.js:96:16)\n    at buildConfigChain (/Users/aharibabu/Documents/ES6/es6-snippets/node_modules/babel-core/lib/transformation/file/options/build-config-chain.js:61:13)\n    at OptionManager.init (/Users/aharibabu/Documents/ES6/es6-snippets/node_modules/babel-core/lib/transformation/file/options/option-manager.js:354:58)\n    at File.initOptions (/Users/aharibabu/Documents/ES6/es6-snippets/node_modules/babel-core/lib/transformation/file/index.js:212:65)\n    at new File (/Users/aharibabu/Documents/ES6/es6-snippets/node_modules/babel-core/lib/transformation/file/index.js:135:24)\n    at Pipeline.transform (/Users/aharibabu/Documents/ES6/es6-snippets/node_modules/babel-core/lib/transformation/pipeline.js:46:16)\n    at transpile (/Users/aharibabu/Documents/ES6/es6-snippets/node_modules/babel-loader/lib/index.js:48:20)\n    at Object.module.exports (/Users/aharibabu/Documents/ES6/es6-snippets/node_modules/babel-loader/lib/index.js:163:20)");
+console.log("Inside Index.JS");
+
+
+/***/ }),
+/* 1 */
+/***/ (function(module, exports) {
+
+//Let Example - True block scoping
+
+var doWork = function(flag){
+  if(flag){
+    var x = 3;
+  }
+  return x;
+}
+
+var result = doWork(false);
+console.log(result);
+
+
+// function greaterThan(m){
+//   return function(n) { return n > m;};
+// }
+// const greaterThan10 = greaterThan(10);
+// console.log(greaterThan10(11));
+
+
+/***/ }),
+/* 2 */
+/***/ (function(module, exports, __webpack_require__) {
+
+__webpack_require__(1);
+module.exports = __webpack_require__(0);
+
 
 /***/ })
 /******/ ]);
+//# sourceMappingURL=bundle.js.map

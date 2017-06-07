@@ -1,12 +1,24 @@
+const path = require("path");
+
 module.exports = {
-	entry: "./js/main.js",
+	entry: ["./js/main.js", "./js/index.js"],
 	output: {
 		path: __dirname + "/dist",
-		filename: "main.bundle.js"
+		filename: "bundle.js"
 	},
+	devtool: "source-map",
 	module: {
 		loaders: [
-			{test: /\.js$/, exclude: /node_modules/, loader: "babel-loader"}
+			{
+				// Only run `.js` and `.jsx` files through Babel
+				test: /\.jsx?$/,
+				// Skip any files outside of your project's `src` directory
+				include: [
+					path.resolve(__dirname, "src")
+				],
+				exclude: /node_modules/,
+				loader: "babel-loader"
+			}
 		]
 	},
 	externals: {
