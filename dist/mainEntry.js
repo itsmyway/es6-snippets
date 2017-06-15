@@ -67,7 +67,8 @@
 /******/ })
 /************************************************************************/
 /******/ ([
-/* 0 */
+/* 0 */,
+/* 1 */
 /***/ (function(module, exports) {
 
 console.log("Inside Main.JS");
@@ -83,13 +84,6 @@ function getCompany(companyId){
 }
 
 
-/***/ }),
-/* 1 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = __webpack_require__(0);
-
-
 /***/ })
 /******/ ]);
-//# sourceMappingURL=bundle.js.map
+//# sourceMappingURL=mainEntry.js.map

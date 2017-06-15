@@ -7,7 +7,8 @@
     "test": "karma start",
     "build": "webpack && node-sass ./scss -o ./css && exit 0",
     "watch": "webpack --watch & node-sass --watch ./scss -o ./css",
-    "serve": "npm run watch & live-server"
+    "serve": "npm run watch & live-server",
+    "start": "http-server -a localhost -p 8000"
   },
   "repository": {
     "type": "git",
@@ -25,6 +26,7 @@
     "babel-core": "^6.24.1",
     "babel-loader": "^7.0.0",
     "babel-preset-env": "^1.5.1",
+    "http-server": "^0.10.0",
     "jasmine-core": "^2.6.2",
     "karma": "^1.7.0",
     "karma-chrome-launcher": "^2.1.1",

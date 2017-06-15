@@ -1,10 +1,14 @@
 const path = require("path");
 
 module.exports = {
-	entry: ["./js/main.js", "./js/index.js"],
+	//entry: ["./js/main.js", "./js/index.js"],
+	entry: {
+		"indexEntry": './js/index.js',
+		"mainEntry": './js/main.js'
+	},
 	output: {
 		path: __dirname + "/dist",
-		filename: "bundle.js"
+		filename: "[name].js"
 	},
 	devtool: "source-map",
 	module: {
