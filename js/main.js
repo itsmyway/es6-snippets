@@ -1,4 +1,57 @@
 console.log("JS Interview Questions");
+
+import requestXHR from './ajaxExport';
+requestXHR({url: "employees.json"})
+    .then(data => {
+        let employees = JSON.parse(data);
+        let html = "";
+        employees.forEach(employee => {
+            html += `
+                <div>
+                    <img src='${employee.picture}'/>
+                    <div>
+                        ${employee.firstName} ${employee.lastName}
+                        <p>${employee.phone}</p>
+                    </div>
+                </div>`;
+        });
+        document.getElementById("main").innerHTML = html;
+    })
+    .catch(error => {
+        console.log(error);
+    });
+
+//-------------------------------------------------------------------------------------------------------------------------
+//Repeatify
+// console.log('hello'.repeatify(3))
+// String.prototype.repeatify = String.prototype.repeatify || function (n){
+//   let str;
+//   for(let i=0; i<n; i++){
+//     str += this
+//   }
+//   return str;
+// }
+//-------------------------------------------------------------------------------------------------------------------------
+import json from '../src/data.json';
+console.log('JSON' + JSON.stringify(json));
+//-------------------------------------------------------------------------------------------------------------------------
+import './createCompany';
+
+//One way to import from modules
+// import {Employee, log, modelEmployee} from './employee';
+// let emp = new Employee('Anu');
+// document.querySelector('.module').innerHTML = emp.doWork();
+// log(modelEmployee);
+
+//Second way to import from modules
+let emp = require('./employee');
+console.log(emp);
+
+ let anu = new emp.Employee('anu');
+// //anu._name = 'priya'; will not work if we use symbol to store
+emp.log(emp.modelEmployee);
+emp.log(anu);
+
 //Find random number between  1 and 6
 //Math.floor(Math.random() * 6) + 1
 function getRandomInt(min, max) {
@@ -321,39 +374,41 @@ async function main(){
 main();
 //-------------------------------------------------------------------------------------------------------------------------
 //Reading from a file without a promise
-fs.readFile('config.json',
-    function (error, text) {
-        if (error) {
-            console.error('Error while reading config file');
-        } else {
-            try {
-                const obj = JSON.parse(text);
-                console.log(JSON.stringify(obj, null, 4));
-            } catch (e) {
-                console.error('Invalid JSON in file');
-            }
-        }
-    });
-//Reading from a file using a Promise
-import {readFile} from 'fs';
+// fs.readFile('../src/config.json',
+//     function (error, text) {
+//         if (error) {
+//             console.error('Error while reading config file');
+//         } else {
+//             try {
+//                 const obj = JSON.parse(text);
+//                 console.log(JSON.stringify(obj, null, 4));
+//             } catch (e) {
+//                 console.error('Invalid JSON in file');
+//             }
+//         }
+//     });
 
-function readFileUsingPromise(filename){
-  //if multiple filenames
-  // filenames.forEach((filenam) => {
-  //
-  // })
-  return new Promise((resolve, reject) => {
-    readFile(filename, {encoding: 'utf-8'}, (error, data) =>{
-      if(error){
-        reject(error);
-      } else {
-        resolve(data);
-      }
-    });
-  });
-}
+//Reading from a file using a Promise
+//import {readFile} from 'fs';
+
+// function readFileUsingPromise(filename){
+//   console.log('Entering fn');
+//   //if multiple filenames
+//   // filenames.forEach((filenam) => {
+//   //
+//   // })
+//   return new Promise((resolve, reject) => {
+//     readFile(filename, {encoding: 'utf-8'}, (error, data) =>{
+//       if(error){
+//         reject(error);
+//       } else {
+//         resolve(data);
+//       }
+//     });
+//   });
+// }
 
 //usage
-// readFileUsingPromise(process.argv[2])
+// readFileUsingPromise('../src/config.json')
 //   .then((resp) => console.log(resp))
 //   .catch((error) => console.log(error))

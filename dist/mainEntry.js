@@ -63,15 +63,180 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 1);
+/******/ 	return __webpack_require__(__webpack_require__.s = 6);
 /******/ })
 /************************************************************************/
 /******/ ([
-/* 0 */,
+/* 0 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "log", function() { return log; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "modelEmployee", function() { return modelEmployee; });
+//let s_name = Symbol();
+
+class Employee{
+  constructor(name){
+    this._name = name;
+  }
+  get name(){
+    return this._name;
+  }
+  doWork(){
+    return `${this.name} is working`;
+  }
+}
+/* harmony export (immutable) */ __webpack_exports__["Employee"] = Employee;
+
+
+let log = function(employee){
+  console.log(employee.name);
+}
+
+let modelEmployee = new Employee("Allen");
+
+
+/***/ }),
 /* 1 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__company__ = __webpack_require__(4);
+
+
+let anuRagerz = new __WEBPACK_IMPORTED_MODULE_0__company__["a" /* Company */]();
+anuRagerz.hire("Anu", "Ratz", "Veera");
+document.querySelector('.module').innerHTML = anuRagerz.doWork();
+
+
+/***/ }),
+/* 2 */
 /***/ (function(module, exports) {
 
+module.exports = {
+	"widget": {
+		"debug": "on",
+		"window": {
+			"title": "Sample Konfabulator Widget",
+			"name": "main_window",
+			"width": 500,
+			"height": 500
+		},
+		"image": {
+			"src": "Images/Sun.png",
+			"name": "sun1",
+			"hOffset": 250,
+			"vOffset": 250,
+			"alignment": "center"
+		},
+		"text": {
+			"data": "Click Here",
+			"size": 36,
+			"style": "bold",
+			"name": "text1",
+			"hOffset": 250,
+			"vOffset": 100,
+			"alignment": "center",
+			"onMouseUp": "sun1.opacity = (sun1.opacity / 100) * 90;"
+		}
+	}
+};
+
+/***/ }),
+/* 3 */,
+/* 4 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__employee__ = __webpack_require__(0);
+
+
+class Company{
+  hire(...names){
+    this.employees = names.map((name) => new __WEBPACK_IMPORTED_MODULE_0__employee__["Employee"](name));
+    console.log(this.employees);
+  }
+  doWork(){
+    this.emp_work = [];
+    //both below worked
+    //this.emp_work = this.employees.map((emp) => emp.doWork());
+    for (let Employee of this.employees) {
+      this.emp_work.push(Employee.doWork());
+    }
+  //return [ for(let e of this.employees) e.doWork() ];
+  return this.emp_work;
+  }
+}
+/* harmony export (immutable) */ __webpack_exports__["a"] = Company;
+
+
+
+/***/ }),
+/* 5 */,
+/* 6 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__ajaxExport__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__src_data_json__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__src_data_json___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__src_data_json__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__createCompany__ = __webpack_require__(1);
 console.log("JS Interview Questions");
+
+
+__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__ajaxExport__["a" /* default */])({url: "employees.json"})
+    .then(data => {
+        let employees = JSON.parse(data);
+        let html = "";
+        employees.forEach(employee => {
+            html += `
+                <div>
+                    <img src='${employee.picture}'/>
+                    <div>
+                        ${employee.firstName} ${employee.lastName}
+                        <p>${employee.phone}</p>
+                    </div>
+                </div>`;
+        });
+        document.getElementById("main").innerHTML = html;
+    })
+    .catch(error => {
+        console.log(error);
+    });
+
+//-------------------------------------------------------------------------------------------------------------------------
+//Repeatify
+// console.log('hello'.repeatify(3))
+// String.prototype.repeatify = String.prototype.repeatify || function (n){
+//   let str;
+//   for(let i=0; i<n; i++){
+//     str += this
+//   }
+//   return str;
+// }
+//-------------------------------------------------------------------------------------------------------------------------
+
+console.log('JSON' + JSON.stringify(__WEBPACK_IMPORTED_MODULE_1__src_data_json___default.a));
+//-------------------------------------------------------------------------------------------------------------------------
+
+
+//One way to import from modules
+// import {Employee, log, modelEmployee} from './employee';
+// let emp = new Employee('Anu');
+// document.querySelector('.module').innerHTML = emp.doWork();
+// log(modelEmployee);
+
+//Second way to import from modules
+let emp = __webpack_require__(0);
+console.log(emp);
+
+ let anu = new emp.Employee('anu');
+// //anu._name = 'priya'; will not work if we use symbol to store
+emp.log(emp.modelEmployee);
+emp.log(anu);
+
 //Find random number between  1 and 6
 //Math.floor(Math.random() * 6) + 1
 function getRandomInt(min, max) {
@@ -360,6 +525,106 @@ let iter = new IterableArgs('hello', 'world');
 for(let x of iter){
   console.log('Item:', x);
 }
+//-------------------------------------------------------------------------------------------------------------------------
+//Storing pricate data variables Exploringjs.com //classes
+class CountDown{
+	constructor(counter, cb){
+		this.dec = function(){
+    console.log("Counter" + counter);
+      if(counter === 0) { cb(); }
+      if(counter < 1) return;
+      console.log('Decrementing' + counter--);
+    }
+	}
+}
+let c = new CountDown(2, () => console.log('DONE'))
+c.dec();
+c.dec();
+//-------------------------------------------------------------------------------------------------------------------------
+//Promises
+
+function asyncF(){
+  return new Promise((resolve, reject) => {
+    setTimeout(() => resolve('success'), 3000);
+  })
+}
+asyncF().then((resp) => console.log(resp));
+
+//using async/awai
+
+async function main(){
+  let x = await asyncF();
+  console.log('Result' +x);
+}
+main();
+//-------------------------------------------------------------------------------------------------------------------------
+//Reading from a file without a promise
+// fs.readFile('../src/config.json',
+//     function (error, text) {
+//         if (error) {
+//             console.error('Error while reading config file');
+//         } else {
+//             try {
+//                 const obj = JSON.parse(text);
+//                 console.log(JSON.stringify(obj, null, 4));
+//             } catch (e) {
+//                 console.error('Invalid JSON in file');
+//             }
+//         }
+//     });
+
+//Reading from a file using a Promise
+//import {readFile} from 'fs';
+
+// function readFileUsingPromise(filename){
+//   console.log('Entering fn');
+//   //if multiple filenames
+//   // filenames.forEach((filenam) => {
+//   //
+//   // })
+//   return new Promise((resolve, reject) => {
+//     readFile(filename, {encoding: 'utf-8'}, (error, data) =>{
+//       if(error){
+//         reject(error);
+//       } else {
+//         resolve(data);
+//       }
+//     });
+//   });
+// }
+
+//usage
+// readFileUsingPromise('../src/config.json')
+//   .then((resp) => console.log(resp))
+//   .catch((error) => console.log(error))
+
+
+/***/ }),
+/* 7 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+// XMLHttpRequest wrapper using callbacks
+/* harmony default export */ __webpack_exports__["a"] = (obj => {
+    return new Promise((resolve, reject) => {
+        let xhr = new XMLHttpRequest();
+        xhr.open(obj.method || "GET", obj.url);
+        if (obj.headers) {
+            Object.keys(obj.headers).forEach(key => {
+                xhr.setRequestHeader(key, obj.headers[key]);
+            });
+        }
+        xhr.onload = () => {
+            if (xhr.status >= 200 && xhr.status < 300) {
+                resolve(xhr.response);
+            } else {
+                reject(xhr.statusText);
+            }
+        };
+        xhr.onerror = () => reject(xhr.statusText);
+        xhr.send(obj.body);
+    });
+});
 
 
 /***/ })

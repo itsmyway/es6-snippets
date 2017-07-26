@@ -28,6 +28,7 @@
     "babel-preset-env": "^1.5.1",
     "http-server": "^0.10.0",
     "jasmine-core": "^2.6.2",
+    "json-loader": "^0.5.4",
     "karma": "^1.7.0",
     "karma-chrome-launcher": "^2.1.1",
     "karma-jasmine": "^1.1.0",
@@ -35,7 +36,8 @@
     "karma-spec-reporter": "0.0.31",
     "karma-webpack": "^2.0.3",
     "node-sass": "^4.5.3",
-    "webpack": "^2.6.1"
+    "webpack": "^2.6.1",
+    "xmlhttprequest": "^1.8.0"
   },
   "dependencies": {
     "jquery": "^3.2.1"

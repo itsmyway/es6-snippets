@@ -1,10 +1,12 @@
 const path = require("path");
+const fs = require('fs');
 
 module.exports = {
 	//entry: ["./js/main.js", "./js/index.js"],
 	entry: {
 		"indexEntry": './js/index.js',
-		"mainEntry": './js/main.js'
+		"mainEntry": './js/main.js',
+		"ajaxEntry": './js/ajax.js'
 	},
 	output: {
 		path: __dirname + "/dist",
@@ -22,10 +24,18 @@ module.exports = {
 				],
 				exclude: /node_modules/,
 				loader: "babel-loader"
-			}
+			},
+			{
+        test: /\.json$/,
+        use: 'json-loader'
+      }
 		]
 	},
 	externals: {
 		"jquery": "jQuery"
+	},
+	target: "node",
+	node: {
+  	fs: "empty"
 	}
 }
