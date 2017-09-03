@@ -6,7 +6,9 @@ module.exports = {
 	entry: {
 		"indexEntry": './js/index.js',
 		"mainEntry": './js/main.js',
-		"ajaxEntry": './js/ajax.js'
+		"ajaxEntry": './js/ajax.js',
+		"sandboxEntry": './js/sandbox.js',
+		"generator": './js/sillygenerator.js'
 	},
 	output: {
 		path: __dirname + "/dist",

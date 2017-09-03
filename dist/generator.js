@@ -63,90 +63,50 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 4);
+/******/ 	return __webpack_require__(__webpack_require__.s = 9);
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ 4:
+/***/ 9:
 /***/ (function(module, exports) {
 
-let request = function(obj){
-  return new Promise((resolve, reject) => {
-    let xhr = new XMLHttpRequest();
-    //open the xhr connection
-    xhr.open(obj.method || 'GET', obj.url);
-    if(obj.headers){
-      Object.keys(obj.headers).forEach((key) => {
-        xhr.setRequestHeader(key, obj.headers[key]);
-      });
-    }
-    //xhr.onload gets called when XMLHttpRequest transaction completes successfully.
-    //syntax XMLHttpRequest.onload = callback;
-    xhr.onload = () => {
-      if(xhr.status >= 200 && xhr.status < 300){
-        resolve(xhr.response);
-      } else {
-        reject(xhr.statusText);
-      }
-    }
-    //XMLHttpRequest.onerror = callback;
-    xhr.onerror = () => reject(xhr.statusText);
-    xhr.send(obj.body);
-  });
-}
+let customName = document.getElementById('customname'),
+    randomize = document.querySelector('.randomize'),
+    story = document.querySelector('.story');
 
-request({url: "employees.json"})
-  .then(data => {
-    let employees = JSON.parse(data);
-    let html = "";
-    employees.forEach(employee => {
-      html += `
-        <div>
-          <img src='${employee.picture}'/>
-          <div>
-              ${employee.firstName} ${employee.lastName}
-              <p>${employee.phone}</p>
-          </div>
-        </div>`;
-        document.getElementById("list").innerHTML = html;
-    });
-  })
-  .catch(error => {
-    console.log(error);
-  })
+const insertX = ['Willy the Goblin', 'Big Daddy','Father Christmas'],
+      insertY = ['the soup kitchen', 'Disneyland','the White House'],
+      insertZ = ['spontaneously combusted', 'melted into a puddle on the sidewalk', 'turned into a slug and crawled away'];
 
-// let request = obj => {
-//     return new Promise((resolve, reject) => {
-//         let xhr = new XMLHttpRequest();
-//         console.log('XHR Request' + xhr);
-//         xhr.open(obj.method || "GET", obj.url);
-//         if (obj.headers) {
-//             Object.keys(obj.headers).forEach(key => {
-//                 xhr.setRequestHeader(key, obj.headers[key]);
-//             });
-//         }
-//         xhr.onload = () => {
-//             if (xhr.status >= 200 && xhr.status < 300) {
-//                 resolve(xhr.response);
-//             } else {
-//                 reject(xhr.statusText);
-//             }
-//         };
-//         xhr.onerror = () => reject(xhr.statusText);
-//         xhr.send(obj.body);
-//     });
-// };
+let temperature = '94 farenheit',
+    weight = '300'
 
-//console.log('XHR Request' + request);
-//For you to understand that fns can be defined this way
-// let ddd = ((n) => {
-//   console.log('n', n);
-// });
-// console.log(ddd(3));
+const randomValueFromArray = (array) => {
+  // console.log(array[Math.floor(Math.random()*array.length)]);
+  return array[Math.floor(Math.random()*array.length)];
+};
+
+randomize.addEventListener('click', () => {
+  xItem = randomValueFromArray(insertX),
+  yItem = randomValueFromArray(insertY),
+  zItem = randomValueFromArray(insertZ);
+
+  if(customName.value != ''){
+    name = customName.value
+  }
+
+  if(document.getElementById("uk").checked) {
+     weight = Math.round(300*0.0714286) + ' stone';
+     temperature =  Math.round((94-32) * 5 / 9) + ' centigrade';
+  }
+
+  story.textContent = `It was ${temperature} outside, so ${xItem} went for a walk. When they got to ${yItem}, they stared in horror for a few moments, then ${zItem}:. ${name} saw the whole thing, but he was not surprised — ${xItem}: weighs ${weight}, and it was a hot day.`;
+  story.style.visibility = 'visible';
+});
 
 
 /***/ })
 
 /******/ });
-//# sourceMappingURL=ajaxEntry.js.map
+//# sourceMappingURL=generator.js.map

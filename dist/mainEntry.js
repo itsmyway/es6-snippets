@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 6);
+/******/ 	return __webpack_require__(__webpack_require__.s = 7);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -102,7 +102,63 @@ let modelEmployee = new Employee("Allen");
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__company__ = __webpack_require__(4);
+// XMLHttpRequest wrapper using callbacks
+/* harmony default export */ __webpack_exports__["a"] = (obj => {
+    return new Promise((resolve, reject) => {
+        let xhr = new XMLHttpRequest();
+        xhr.open(obj.method || "GET", obj.url);
+        if (obj.headers) {
+            Object.keys(obj.headers).forEach(key => {
+                xhr.setRequestHeader(key, obj.headers[key]);
+            });
+        }
+        xhr.onload = () => {
+            if (xhr.status >= 200 && xhr.status < 300) {
+                resolve(xhr.response);
+            } else {
+                reject(xhr.statusText);
+            }
+        };
+        xhr.onerror = () => reject(xhr.statusText);
+        xhr.send(obj.body);
+    });
+});
+
+
+// let str = "Hello";
+// //output : "H-e-l-l-o";
+//
+// str.split("").join("-")
+//
+//
+// //let arr[]= [1, [2,3], [4,5,6]]; //[1,2,3...]
+// //flatten the array
+//
+// const flattenArray = (arr) => {
+//     let newArr = [];
+//     arr.forEach(item => {
+//         if(item.isArray()){
+//             flattenArray(item)
+//         } else{
+//             newArr.push(item);
+//         }
+//     });
+//     return newArr
+// }
+//
+// let nArr = flattenArray(arr)
+//
+// let arr1 = [1];
+// let arr2 = [2,3]
+// let arr3 = [4,5,6]
+
+
+/***/ }),
+/* 2 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__company__ = __webpack_require__(5);
 
 
 let anuRagerz = new __WEBPACK_IMPORTED_MODULE_0__company__["a" /* Company */]();
@@ -111,7 +167,7 @@ document.querySelector('.module').innerHTML = anuRagerz.doWork();
 
 
 /***/ }),
-/* 2 */
+/* 3 */
 /***/ (function(module, exports) {
 
 module.exports = {
@@ -144,8 +200,8 @@ module.exports = {
 };
 
 /***/ }),
-/* 3 */,
-/* 4 */
+/* 4 */,
+/* 5 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -173,16 +229,16 @@ class Company{
 
 
 /***/ }),
-/* 5 */,
-/* 6 */
+/* 6 */,
+/* 7 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__ajaxExport__ = __webpack_require__(7);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__src_data_json__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__ajaxExport__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__src_data_json__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__src_data_json___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__src_data_json__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__createCompany__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__createCompany__ = __webpack_require__(2);
 console.log("JS Interview Questions");
 
 
@@ -597,34 +653,6 @@ main();
 // readFileUsingPromise('../src/config.json')
 //   .then((resp) => console.log(resp))
 //   .catch((error) => console.log(error))
-
-
-/***/ }),
-/* 7 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-// XMLHttpRequest wrapper using callbacks
-/* harmony default export */ __webpack_exports__["a"] = (obj => {
-    return new Promise((resolve, reject) => {
-        let xhr = new XMLHttpRequest();
-        xhr.open(obj.method || "GET", obj.url);
-        if (obj.headers) {
-            Object.keys(obj.headers).forEach(key => {
-                xhr.setRequestHeader(key, obj.headers[key]);
-            });
-        }
-        xhr.onload = () => {
-            if (xhr.status >= 200 && xhr.status < 300) {
-                resolve(xhr.response);
-            } else {
-                reject(xhr.statusText);
-            }
-        };
-        xhr.onerror = () => reject(xhr.statusText);
-        xhr.send(obj.body);
-    });
-});
 
 
 /***/ })

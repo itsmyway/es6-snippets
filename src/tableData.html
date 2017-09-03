@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width">
+  <style>
+  table, th, td {
+   border: 1px solid black;
+  }
+  </style>
+  <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <!--Latest WebSDK Tracking Library-->
+  <script src="https://dwum8argi892z.cloudfront.net/js/cdc_lib_min_latest.js"></script>
+  <!--WebSDK Config File-->
+  <script type="text/javascript" src="http://sandbox.evolytics.com/wsdk/code/wsdk-config.js"></script>
+
+</head>
+<body>
+  <table>
+    <tr>
+      <td><input type="checkbox" value="1" id="id11"></td>
+      <td><input type="checkbox" value="1" id="id12"></td>
+      <td><input type="checkbox" value="1" id="id13"></td>
+    </tr>
+    <tr>
+      <td><input type="checkbox" value="1" id="id21"></td>
+      <td><input type="checkbox" value="1" id="id22"></td>
+      <td><input type="checkbox" value="1" id="id23"></td>
+    </tr>
+    <tr>
+      <td><input type="checkbox" value="1" id="id31"></td>
+      <td><input type="checkbox" value="1" id="id32"></td>
+      <td><input type="checkbox" value="1" id="id33"></td>
+    </tr>
+    <tr>
+      <td><input type="checkbox" value="1" id="id41"></td>
+      <td><input type="checkbox" value="1" id="id42"></td>
+      <td><input type="checkbox" value="1" id="id43"></td>
+    </tr>
+    <tr>
+      <td><input type="checkbox" value="1" id="id51"></td>
+      <td><input type="checkbox" value="1" id="id52"></td>
+      <td><input type="checkbox" value="1" id="id53"></td>
+    </tr>
+    <tr>
+      <td><input type="checkbox" value="1" id="id61"></td>
+      <td><input type="checkbox" value="1" id="id62"></td>
+      <td><input type="checkbox" value="1" id="id63"></td>
+    </tr>
+  </table>
+  <button class="btn">Submit</button>
+  <a href="//qbcommunity.com" data-wa-link="wsdk_demo-siteName-inline_datawalinkTest">Link</a>
+  <script>
+    let btn = document.querySelector('.btn')
+    btn.addEventListener('click', () => {
+      const selectedRows = document.querySelectorAll('tr:nth-child(even) input[type=checkbox]:checked');
+      const selectedIDs = [...selectedRows].map(item => {
+        return item.id
+      })
+      alert(selectedIDs.join(','))
+    })
+  </script>
+  <script type="text/javascript">
+    // window.webAnalyticsSDKTracker = new intuit.web.analytics();
+    // console.log(window.webAnalyticsSDKTracker);
+        window.webAnalyticsSDKTracker=new window.intuit.web.analytics();
+        webAnalyticsSDKTracker.init(window.sdkWa);
+        hasWebsdkConfigCallbackOcurred = true;
+  </script>
+</body>
+</html>
