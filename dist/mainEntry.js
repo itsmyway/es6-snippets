@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 7);
+/******/ 	return __webpack_require__(__webpack_require__.s = 9);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -154,11 +154,12 @@ let modelEmployee = new Employee("Allen");
 
 
 /***/ }),
-/* 2 */
+/* 2 */,
+/* 3 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__company__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__company__ = __webpack_require__(7);
 
 
 let anuRagerz = new __WEBPACK_IMPORTED_MODULE_0__company__["a" /* Company */]();
@@ -167,7 +168,7 @@ document.querySelector('.module').innerHTML = anuRagerz.doWork();
 
 
 /***/ }),
-/* 3 */
+/* 4 */
 /***/ (function(module, exports) {
 
 module.exports = {
@@ -200,8 +201,9 @@ module.exports = {
 };
 
 /***/ }),
-/* 4 */,
-/* 5 */
+/* 5 */,
+/* 6 */,
+/* 7 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -229,16 +231,16 @@ class Company{
 
 
 /***/ }),
-/* 6 */,
-/* 7 */
+/* 8 */,
+/* 9 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__ajaxExport__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__src_data_json__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__src_data_json__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__src_data_json___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__src_data_json__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__createCompany__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__createCompany__ = __webpack_require__(3);
 console.log("JS Interview Questions");
 
 
@@ -298,6 +300,11 @@ emp.log(anu);
 function getRandomInt(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
+
+
+// Array.prototype.random = function () {
+//   return this[Math.floor((Math.random()*this.length))];
+// }
 
 //-------------------------------------------------------------------------------------------------------------------------
 /*"this" is undefined within IIFE function,*/

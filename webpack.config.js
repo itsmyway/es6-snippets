@@ -8,7 +8,10 @@ module.exports = {
 		"mainEntry": './js/main.js',
 		"ajaxEntry": './js/ajax.js',
 		"sandboxEntry": './js/sandbox.js',
-		"generator": './js/sillygenerator.js'
+		"algosEntry": './js/algos.js',
+		"generator": './js/sillygenerator.js',
+		"tree": './js/treetraverse.js',
+		"sliderEntry": './js/slider.js'
 	},
 	output: {
 		path: __dirname + "/dist",

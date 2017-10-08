@@ -1,0 +1,5 @@
+class HorizontalTabs{
+  constructor(){
+
+  }
+}

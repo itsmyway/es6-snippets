@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <link href='http://fonts.googleapis.com/css?family=Roboto:400,300,700' rel='stylesheet' type='text/css'>
+</head>
+<style type="text/css">
+html{
+  box-sizing: border-box;
+}
+*, *:before, *:after{
+  box-sizing: inherit;
+}
+body{
+  min-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+h1{
+  align-self: center;
+}
+header,
+footer{
+  height: 10vh;
+  background: rgba(0,0,0,0.13);
+  display: flex;
+  -ms-align-items: center;
+  align-items: center;
+  padding: 2em;
+}
+main{
+  display: flex;
+  flex:1;
+}
+nav,
+aside{
+  flex: 1 1 0;
+}
+nav {
+  order: -1
+}
+
+article,
+aside,
+nav{
+  padding: 2em;
+  background: rgba(0,0,0,0.40);
+  color: rgba(255,255,255,1);
+  margin: 0;
+}
+article{
+  flex: 4 1 0;
+  background: rgba(0,0,0,0.5);
+}
+@media all and (max-width: 640px){
+  main{
+    flex-direction: column;
+  }
+}
+</style>
+<body>
+  <h1>Flexbox layout</h1>
+  <header>
+    <div class="title">
+      My Responsive Home Page
+    </div>
+  </header>
+  <main>
+    <article>
+      Article
+    </article>
+    <nav>
+      Nav
+    </nav>
+    <aside>
+      Aside
+    </aside>
+  </main>
+  <footer>
+    Footer
+  </footer>
+</div>
+</body>
+</html>
