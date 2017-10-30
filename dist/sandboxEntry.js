@@ -63,18 +63,338 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 10);
+/******/ 	return __webpack_require__(__webpack_require__.s = 14);
 /******/ })
 /************************************************************************/
-/******/ ({
+/******/ ([
+/* 0 */,
+/* 1 */,
+/* 2 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-/***/ 10:
+"use strict";
+class Autocomplete {
+  constructor(input, options = {}) {
+    this.configure(Autocomplete.defaults);
+    this.configure(options);
+
+    this.input = input;
+    this.isCompleting = false;
+
+    this.completions = document.createElement('div');
+    this.completions.classList.add('autocomplete');
+    insertAfter(this.input, this.completions);
+    this.completions = new SelectionBox(this.completions);
+
+    this.input.addEventListener('focus', e => {
+      clearTimeout(this.blurTimer);
+    });
+
+    this.input.addEventListener('blur', e => {
+      this.blurTimer = setTimeout(_ => this.stopCompleting(), 100);
+    });
+
+    this.input.addEventListener('input', e => {
+      clearTimeout(this.inputTimer);
+      this.inputTimer = setTimeout(_ => {
+        if(this.isActionable(e)) {
+          if(!this.isCompleting) this.startCompleting();
+          this.refreshCompletions()
+        } else {
+          this.stopCompleting();
+        }
+      }, 500);
+    });
+
+    this.input.addEventListener('keydown', e => {
+      let key = whichkey(e);
+      if(this.isCompleting) {
+        if(key.enter || key.up || key.down) {
+          e.preventDefault();
+          return false;
+        } else if(key.esc) {
+          this.stopCompleting();
+        }
+      }
+    });
+  }
+
+  configure(options) {
+    this.options = Object.assign(this.options || {}, options);
+  }
+
+  isActionable(e) {
+    return this.options.threshold.call(this, this.input, e);
+  }
+
+  startCompleting() {
+    this.completions.container.classList.add('open');
+    this.completions.focus();
+    this.isCompleting = true;
+  }
+
+  stopCompleting() {
+    this.completions.container.classList.remove('open');
+    this.completions.blur();
+    this.isCompleting = false;
+  }
+
+  refreshCompletions() {
+    this.completions.resetItems();
+
+    let callback = (items) => {
+      this.isQuerying = false;
+
+      items.forEach(item => {
+        let element = this.options.render.call(this, item);
+        this.completions.addItem(element, _ => this.applyCompletion(item));
+      });
+    };
+
+    if(!this.isQuerying) {
+      this.isQuerying = true;
+      let result = this.options.query.call(this, this.input.value, this.options.source, callback);
+      if(result) callback(result);
+    }
+  }
+
+  applyCompletion(item) {
+    this.options.complete.call(this, item);
+    this.stopCompleting();
+  }
+}
+/* unused harmony export Autocomplete */
+
+
+Autocomplete.defaults = {
+
+  // ...
+  threshold: function(input, e) {
+    return input.value.length > 0;
+  },
+
+  // ...
+  source: [],
+
+  // ...
+  query: function(query, source) {
+    return source.filter(item => {
+      return !!item.toLowerCase().match(query.toLowerCase());
+    });
+  },
+
+  // ...
+  render: function(item) {
+    return docment.createTextNode(item);
+  },
+
+  // ...
+  complete: function(item) {
+    this.input.value = item;
+  },
+};
+
+// variables
+var input = document.querySelector('input');
+var people = ['john doe', 'maria', 'paul', 'george', 'jimmy'];
+var results;
+
+// functions
+function autocomplete(val) {
+  var people_return = [];
+
+  for (i = 0; i < people.length; i++) {
+    if (val === people[i].slice(0, val.length)) {
+      people_return.push(people[i]);
+    }
+  }
+
+  return people_return;
+}
+
+// events
+input.onkeyup = function(e) {
+  input_val = this.value; // updates the variable on each ocurrence
+
+  if (input_val.length > 0) {
+    var people_to_show = [];
+
+    autocomplete_results = document.getElementById("autocomplete-results");
+    autocomplete_results.innerHTML = '';
+    people_to_show = autocomplete(input_val);
+
+    for (i = 0; i < people_to_show.length; i++) {
+      autocomplete_results.innerHTML += '<li>' + people_to_show[i] + '</li>';
+
+    }
+    autocomplete_results.style.display = 'block';
+  } else {
+    people_to_show = [];
+    autocomplete_results.innerHTML = '';
+  }
+}
+
+
+/***/ }),
+/* 3 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+class Calculator {
+   constructor(initialValue) {
+     this.setValue = this.setValue.bind(this);
+     this.times = this.times.bind(this);
+     this.minus = this.minus.bind(this);
+     this.plus = this.plus.bind(this);
+     this.dividedBy = this.dividedBy.bind(this);
+     this.toString = this.toString.bind(this);
+     this.fromString = this.fromString.bind(this);
+
+     this.setValue(initialValue);
+   }
+   setValue(val) {
+     this.value = val;
+     this.string = '' + val;
+   }
+   times(val) {
+      this.value = this.value * val;
+      this.string += '*' + val;
+      return this;
+   }
+   minus(val) {
+      this.value -= val;
+      this.string += '-' + val;
+      return this;
+   }
+   plus(val) {
+      this.value += val;
+      this.string += '+' + val;
+      return this;
+   }
+   dividedBy(val) {
+      this.value = this.value / val;
+      this.string += '/' + val;
+      return this;
+   }
+   toString() {
+     return this.string;
+   }
+   fromString(str) {
+      let numbers = [0,1,2,3,4,5,6,7,8,9];
+      let operators = ['*', '-', '+', '/'];
+      let currentNumberString = '';
+      let currentOperatorChar = '';
+      let operatorHandlers = {
+        '*': this.times,
+        '-': this.minus,
+        '+': this.plus,
+        '/': this.dividedBy
+     }
+      str.split('').forEach((char) => {
+          if (numbers.indexOf(parseInt(char, 10)) !== -1) {
+            // store this as part of next number to be used
+            currentNumberString += char;
+          } else if (operators.indexOf(char) !== -1) {
+            // found the next operator
+            if (!this.value) {
+               // store intial value for operator to be used against if it isn't set
+               this.setValue(parseInt(currentNumberString, 10));
+            } else {
+               // use the last operator, then store this one
+               operatorHandlers[currentOperatorChar](parseInt(currentNumberString, 10))
+            }
+            currentNumberString = '';
+            currentOperatorChar = char;
+
+          }
+      });
+      // do the last operator and number
+      operatorHandlers[currentOperatorChar](parseInt(currentNumberString, 10));
+      return this;
+   }
+}
+/* harmony export (immutable) */ __webpack_exports__["a"] = Calculator;
+
+
+
+/***/ }),
+/* 4 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+class Clock{
+  constructor(){
+    this.render = this.render.bind(this)
+    this.start = this.start.bind(this)
+    this.stop = this.stop.bind(this)
+  }
+  render(){
+    this.date = new Date()
+    this.hrs = this.date.getHours()
+    this.mins = this.date.getMinutes()
+    this.secs = this.date.getSeconds()
+    this.output = `${this.hrs}:${this.mins}:${this.secs}`
+    console.log(this.output)
+  }
+  stop(){
+    clearInterval(this.timer)
+  }
+  start(){
+    this.render()
+    this.timer = setInterval(() => this.render(), 1000)
+  }
+}
+/* harmony export (immutable) */ __webpack_exports__["a"] = Clock;
+
+
+
+/***/ }),
+/* 5 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+class CounterC{
+  constructor(value = 0){
+    this._value = value
+    this.increment = this.increment.bind(this)
+  }
+  increment(){
+    this._value += 1
+  }
+  decrement(){
+    this._value -= 1
+  }
+  get value(){
+    return this._value
+  }
+  set value(val){
+    this._value = val
+  }
+}
+/* harmony export (immutable) */ __webpack_exports__["a"] = CounterC;
+
+
+
+/***/ }),
+/* 6 */,
+/* 7 */,
+/* 8 */,
+/* 9 */,
+/* 10 */,
+/* 11 */,
+/* 12 */,
+/* 13 */,
+/* 14 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__calculator__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__counter__ = __webpack_require__(13);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__calculator__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__counter__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__clock__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__autocomplete__ = __webpack_require__(2);
+
+
 
 
 
@@ -364,9 +684,11 @@ function findSum(...args){
       sumMap.set(nums[i], i)
     }
   }
+  console.log('Sum map', sumMap)
+
   return retResult
 }
-console.log(findSum(9, elnums))
+console.log('Findsumm',findSum(9, elnums))
 //find vowels
 const vowelMap = new Map([['a', 1], ['e', 1], ['o', 1], ['i', 1], ['u', 1]])
 const input = 'nBBZLsnm'
@@ -1102,6 +1424,24 @@ const delay = (ms) => {
 }
 //delay(3000).then(() => alert('runs after 3 seconds'));
 
+const decoratorDelay = (func, ms) => {
+  return function(){
+    setTimeout(() => func.apply(this, arguments), ms)
+  }
+}
+
+// Throttle: the original function be called at most once per specified period.
+// Debounce: the original function be called after the caller stops calling the decorated function after a specified period.
+
+const decoratorDebounce = (func, ms) => {
+  let isRunning = false
+  return function(){
+    if(isRunning) return
+    func.apply(this, arguments)
+    isRunning = true
+    setTimeout(() => isRunning = false, ms)
+  };
+}
 //Object methids
 var protoCheck = {
   a: 'Hello',
@@ -1140,27 +1480,27 @@ testProto.prototype = {
 
 }
 
-class Clock{
-  constructor(template){
-    this._template = template
-  }
-  _render(){
-    let date = new Date()
-    let hours = date.getHours()
-    let secs = date.getSeconds()
-    let mins = date.getMinutes()
-    let output = this._template
-                    .replace('h', hours)
-                    .replace('m', mins)
-                    .replace('s', secs)
-  }
-  start(){
-    this._render()
-    this._timer = setInterval(() => this._render, 1)
-  }
-}
-
-let clock = new Clock({template: 'h:m:s'});
+// class Clock{
+//   constructor(template){
+//     this._template = template
+//   }
+//   _render(){
+//     let date = new Date()
+//     let hours = date.getHours()
+//     let secs = date.getSeconds()
+//     let mins = date.getMinutes()
+//     let output = this._template
+//                     .replace('h', hours)
+//                     .replace('m', mins)
+//                     .replace('s', secs)
+//   }
+//   start(){
+//     this._render()
+//     this._timer = setInterval(() => this._render, 1)
+//   }
+// }
+//
+// let clock = new Clock({template: 'h:m:s'});
 
 // class Animal {}
 // class Rabbit extends Animal {}
@@ -1698,7 +2038,6 @@ console.log('Counter value', count1.value)
 
 function printNumbers(from=1, to=100){
   let timerId = setInterval(() => {
-        debugger;
         console.log(from)
         if(from === to){
           clearInterval(timerId)
@@ -1706,121 +2045,83 @@ function printNumbers(from=1, to=100){
         from++;
   }, 1000)
 }
-printNumbers()
+//printNumbers()
 
 
-/***/ }),
-
-/***/ 13:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-class CounterC{
-  constructor(value = 0){
-    this._value = value
-    this.increment = this.increment.bind(this)
+const spy = (func) => {
+  let cache = new Map()
+  function wrapper(...args){
+    let key = [].join.call(arguments)
+    wrapper.calls.push(args)
+    if(cache.get(key)){
+      return cache.get(key)
+    }
+    let result = func.apply(this, arguments)
+    cache.set(key, result)
+    return result
   }
-  increment(){
-    this._value += 1
-  }
-  decrement(){
-    this._value -= 1
-  }
-  get value(){
-    return this._value
-  }
-  set value(val){
-    this._value = val
-  }
+  wrapper.calls = []
+  return wrapper
 }
-/* harmony export (immutable) */ __webpack_exports__["a"] = CounterC;
 
-
-
-/***/ }),
-
-/***/ 2:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-class Calculator {
-   constructor(initialValue) {
-     this.setValue = this.setValue.bind(this);
-     this.times = this.times.bind(this);
-     this.minus = this.minus.bind(this);
-     this.plus = this.plus.bind(this);
-     this.dividedBy = this.dividedBy.bind(this);
-     this.toString = this.toString.bind(this);
-     this.fromString = this.fromString.bind(this);
-
-     this.setValue(initialValue);
-   }
-   setValue(val) {
-     this.value = val;
-     this.string = '' + val;
-   }
-   times(val) {
-      this.value = this.value * val;
-      this.string += '*' + val;
-      return this;
-   }
-   minus(val) {
-      this.value -= val;
-      this.string += '-' + val;
-      return this;
-   }
-   plus(val) {
-      this.value += val;
-      this.string += '+' + val;
-      return this;
-   }
-   dividedBy(val) {
-      this.value = this.value / val;
-      this.string += '/' + val;
-      return this;
-   }
-   toString() {
-     return this.string;
-   }
-   fromString(str) {
-      let numbers = [0,1,2,3,4,5,6,7,8,9];
-      let operators = ['*', '-', '+', '/'];
-      let currentNumberString = '';
-      let currentOperatorChar = '';
-      let operatorHandlers = {
-        '*': this.times,
-        '-': this.minus,
-        '+': this.plus,
-        '/': this.dividedBy
-     }
-      str.split('').forEach((char) => {
-          if (numbers.indexOf(parseInt(char, 10)) !== -1) {
-            // store this as part of next number to be used
-            currentNumberString += char;
-          } else if (operators.indexOf(char) !== -1) {
-            // found the next operator
-            if (!this.value) {
-               // store intial value for operator to be used against if it isn't set
-               this.setValue(parseInt(currentNumberString, 10));
-            } else {
-               // use the last operator, then store this one
-               operatorHandlers[currentOperatorChar](parseInt(currentNumberString, 10))
-            }
-            currentNumberString = '';
-            currentOperatorChar = char;
-
-          }
-      });
-      // do the last operator and number
-      operatorHandlers[currentOperatorChar](parseInt(currentNumberString, 10));
-      return this;
-   }
+function work(a, b) {
+  console.log( 'Work', a + b ); // work is an arbitrary function or method
 }
-/* harmony export (immutable) */ __webpack_exports__["a"] = Calculator;
 
+work = spy(work);
+
+work(1, 2); // 3
+work(4, 5); // 9
+
+for(let args of work.calls) {
+  console.log( 'call:' + args.join() ); // "call:1,2", "call:4,5"
+}
+
+
+let dictionary = Object.create(null, {
+  toString: { // define toString property
+    value() { // the value is a function
+      return Object.keys(this).join();
+    }
+  }
+});
+
+
+let clock = new __WEBPACK_IMPORTED_MODULE_2__clock__["a" /* Clock */]()
+clock.start();
+setTimeout(() => clock.stop(), 10000)
+
+
+const decoratorThrottle = (func, ms) => {
+  let isThrottled = false,
+      savedArgs,
+      savedThis;
+
+  function wrapper(){
+    //save the last memoized call
+    if(isThrottled){
+      savedArgs = arguments
+      savedThis = this
+      return;
+    }
+
+    func.apply(this, arguments)
+    isThrottled = true
+
+    setTimeout(function(){
+      isThrottled= false
+      if(savedArgs){
+        wrapper.apply(savedThis, savedArgs)
+        savedThis = savedArgs = null
+      }
+    }, ms)
+  }
+  return wrapper;
+}
+
+// let auto = new Autocomplete();
 
 
 /***/ })
-
-/******/ });
+/******/ ]);
 //# sourceMappingURL=sandboxEntry.js.map

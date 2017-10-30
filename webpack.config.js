@@ -1,5 +1,17 @@
+var ExtractTextPlugin = require('extract-text-webpack-plugin');
+
 const path = require("path");
 const fs = require('fs');
+
+const extractSass = new ExtractTextPlugin({
+    filename: 'dist/sassStyles.bundle.css',
+    allChunks: true
+});
+
+const extractCSS = new ExtractTextPlugin({
+    filename: "dist/cssStyles.bundle.css",
+    allChunks: true
+});
 
 module.exports = {
 	//entry: ["./js/main.js", "./js/index.js"],
@@ -11,7 +23,8 @@ module.exports = {
 		"algosEntry": './js/algos.js',
 		"generator": './js/sillygenerator.js',
 		"tree": './js/treetraverse.js',
-		"sliderEntry": './js/slider.js'
+		"sliderEntry": './js/slider.js',
+    "pageNavEntry": './js/pageNav.js'
 	},
 	output: {
 		path: __dirname + "/dist",
@@ -33,9 +46,30 @@ module.exports = {
 			{
         test: /\.json$/,
         use: 'json-loader'
+      },
+      { // regular css files
+        test: /\.css$/,
+        loader: extractCSS.extract(['css-loader?sourceMap']),
+        //include: __dirname + '/css'
+        include: path.resolve(__dirname, 'css'),
+        // options: {
+        //   includePath: "./css/variables.css"
+        // }
+      },
+      { // sass / scss loader for webpack
+        test: /\.(sass|scss)$/,
+        loader: extractSass.extract(['css-loader?sourceMap', 'sass-loader?sourceMap'])
       }
 		]
 	},
+  plugins: [
+    extractCSS,
+    extractSass
+    // new ExtractTextPlugin({ // define where to save the file
+    //   filename: 'dist/[name].bundle.css',
+    //   allChunks: true,
+    // }),
+  ],
 	externals: {
 		"jquery": "jQuery"
 	},

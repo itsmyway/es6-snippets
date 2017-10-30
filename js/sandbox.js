@@ -1,5 +1,7 @@
 import {Calculator} from './calculator';
 import {CounterC} from './counter';
+import {Clock} from './clock';
+import {Autocomplete} from './autocomplete'
 
 //------------------------------------------------------------------------------------------------
 //DEFAULT PARAMS CANNOT ACCESS INNER BODY
@@ -287,9 +289,11 @@ function findSum(...args){
       sumMap.set(nums[i], i)
     }
   }
+  console.log('Sum map', sumMap)
+
   return retResult
 }
-console.log(findSum(9, elnums))
+console.log('Findsumm',findSum(9, elnums))
 //find vowels
 const vowelMap = new Map([['a', 1], ['e', 1], ['o', 1], ['i', 1], ['u', 1]])
 const input = 'nBBZLsnm'
@@ -1025,6 +1029,24 @@ const delay = (ms) => {
 }
 //delay(3000).then(() => alert('runs after 3 seconds'));
 
+const decoratorDelay = (func, ms) => {
+  return function(){
+    setTimeout(() => func.apply(this, arguments), ms)
+  }
+}
+
+// Throttle: the original function be called at most once per specified period.
+// Debounce: the original function be called after the caller stops calling the decorated function after a specified period.
+
+const decoratorDebounce = (func, ms) => {
+  let isRunning = false
+  return function(){
+    if(isRunning) return
+    func.apply(this, arguments)
+    isRunning = true
+    setTimeout(() => isRunning = false, ms)
+  };
+}
 //Object methids
 var protoCheck = {
   a: 'Hello',
@@ -1063,27 +1085,27 @@ testProto.prototype = {
 
 }
 
-class Clock{
-  constructor(template){
-    this._template = template
-  }
-  _render(){
-    let date = new Date()
-    let hours = date.getHours()
-    let secs = date.getSeconds()
-    let mins = date.getMinutes()
-    let output = this._template
-                    .replace('h', hours)
-                    .replace('m', mins)
-                    .replace('s', secs)
-  }
-  start(){
-    this._render()
-    this._timer = setInterval(() => this._render, 1)
-  }
-}
-
-let clock = new Clock({template: 'h:m:s'});
+// class Clock{
+//   constructor(template){
+//     this._template = template
+//   }
+//   _render(){
+//     let date = new Date()
+//     let hours = date.getHours()
+//     let secs = date.getSeconds()
+//     let mins = date.getMinutes()
+//     let output = this._template
+//                     .replace('h', hours)
+//                     .replace('m', mins)
+//                     .replace('s', secs)
+//   }
+//   start(){
+//     this._render()
+//     this._timer = setInterval(() => this._render, 1)
+//   }
+// }
+//
+// let clock = new Clock({template: 'h:m:s'});
 
 // class Animal {}
 // class Rabbit extends Animal {}
@@ -1621,7 +1643,6 @@ console.log('Counter value', count1.value)
 
 function printNumbers(from=1, to=100){
   let timerId = setInterval(() => {
-        debugger;
         console.log(from)
         if(from === to){
           clearInterval(timerId)
@@ -1629,4 +1650,78 @@ function printNumbers(from=1, to=100){
         from++;
   }, 1000)
 }
-printNumbers()
+//printNumbers()
+
+
+const spy = (func) => {
+  let cache = new Map()
+  function wrapper(...args){
+    let key = [].join.call(arguments)
+    wrapper.calls.push(args)
+    if(cache.get(key)){
+      return cache.get(key)
+    }
+    let result = func.apply(this, arguments)
+    cache.set(key, result)
+    return result
+  }
+  wrapper.calls = []
+  return wrapper
+}
+
+function work(a, b) {
+  console.log( 'Work', a + b ); // work is an arbitrary function or method
+}
+
+work = spy(work);
+
+work(1, 2); // 3
+work(4, 5); // 9
+
+for(let args of work.calls) {
+  console.log( 'call:' + args.join() ); // "call:1,2", "call:4,5"
+}
+
+
+let dictionary = Object.create(null, {
+  toString: { // define toString property
+    value() { // the value is a function
+      return Object.keys(this).join();
+    }
+  }
+});
+
+
+let clock = new Clock()
+clock.start();
+setTimeout(() => clock.stop(), 10000)
+
+
+const decoratorThrottle = (func, ms) => {
+  let isThrottled = false,
+      savedArgs,
+      savedThis;
+
+  function wrapper(){
+    //save the last memoized call
+    if(isThrottled){
+      savedArgs = arguments
+      savedThis = this
+      return;
+    }
+
+    func.apply(this, arguments)
+    isThrottled = true
+
+    setTimeout(function(){
+      isThrottled= false
+      if(savedArgs){
+        wrapper.apply(savedThis, savedArgs)
+        savedThis = savedArgs = null
+      }
+    }, ms)
+  }
+  return wrapper;
+}
+
+// let auto = new Autocomplete();

@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 9);
+/******/ 	return __webpack_require__(__webpack_require__.s = 12);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -155,11 +155,14 @@ let modelEmployee = new Employee("Allen");
 
 /***/ }),
 /* 2 */,
-/* 3 */
+/* 3 */,
+/* 4 */,
+/* 5 */,
+/* 6 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__company__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__company__ = __webpack_require__(10);
 
 
 let anuRagerz = new __WEBPACK_IMPORTED_MODULE_0__company__["a" /* Company */]();
@@ -168,7 +171,7 @@ document.querySelector('.module').innerHTML = anuRagerz.doWork();
 
 
 /***/ }),
-/* 4 */
+/* 7 */
 /***/ (function(module, exports) {
 
 module.exports = {
@@ -201,9 +204,9 @@ module.exports = {
 };
 
 /***/ }),
-/* 5 */,
-/* 6 */,
-/* 7 */
+/* 8 */,
+/* 9 */,
+/* 10 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -231,16 +234,16 @@ class Company{
 
 
 /***/ }),
-/* 8 */,
-/* 9 */
+/* 11 */,
+/* 12 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__ajaxExport__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__src_data_json__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__src_data_json__ = __webpack_require__(7);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__src_data_json___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__src_data_json__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__createCompany__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__createCompany__ = __webpack_require__(6);
 console.log("JS Interview Questions");
 
 
@@ -660,6 +663,18 @@ main();
 // readFileUsingPromise('../src/config.json')
 //   .then((resp) => console.log(resp))
 //   .catch((error) => console.log(error))
+
+//Random generator array length
+// let colors = ["red", "blue", "green", "yellow", "purple"]
+// let buttonEl = document.querySelector('#hello')
+//
+// const randomColorGen = (arr) => {
+// 	return colors[Math.floor(Math.random() * arr.length)]
+// }
+//
+// setInterval(() => {
+//    buttonEl.style.backgroundColor = randomColorGen(colors)
+// }, 1000)
 
 
 /***/ })

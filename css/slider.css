@@ -1,0 +1,106 @@
+html, body {
+  box-sizing: border-box; }
+
+body {
+  font-size: 62.5%; }
+
+* {
+  margin: 0;
+  padding: 0; }
+
+*,
+*:before,
+*:after {
+  box-sizing: inherit; }
+
+a {
+  text-decoration: none;
+  font-size: 18px;
+  cursor: pointer; }
+
+li {
+  list-style-type: none; }
+
+.carousel-slider {
+  position: relative;
+  max-width: 960px;
+  margin: 0 auto; }
+  .carousel-slider .carousel-nav {
+    position: relative; }
+  .carousel-slider .chevron {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    transition: 0.6s ease; }
+  .carousel-slider .chevron--left {
+    left: 0; }
+  .carousel-slider .chevron--right {
+    right: 0; }
+  .carousel-slider .chevron--left:before {
+    content: '\2039';
+    font-size: 2rem;
+    font-weight: bold;
+    left: 0; }
+  .carousel-slider .chevron--right:before {
+    content: '\203A';
+    font-size: 2rem;
+    font-weight: bold; }
+  .carousel-slider .carousel-icons {
+    display: flex;
+    overflow: hidden;
+    margin: 0 1.3rem; }
+  .carousel-slider .carousel-page {
+    display: flex;
+    justify-content: center;
+    align-items: center; }
+    .carousel-slider .carousel-page > li {
+      padding: 10px; }
+  .carousel-slider .carousel-container {
+    position: relative;
+    display: none; }
+    .carousel-slider .carousel-container .carousel-content {
+      position: relative;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 100%;
+      transition: all 0.5s;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 19;
+      animation: 1s fade; }
+      .carousel-slider .carousel-container .carousel-content img {
+        display: block;
+        margin: 0 auto;
+        max-width: 100%; }
+    .carousel-slider .carousel-container .drawer {
+      position: absolute;
+      z-index: 20;
+      background: rgba(0, 0, 0, 0.8);
+      overflow-y: hidden;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      width: 100%;
+      max-height: 0%;
+      margin: 0 auto;
+      transition: max-height 0.5s; }
+      .carousel-slider .carousel-container .drawer img {
+        margin: 0 auto;
+        display: block; }
+    .carousel-slider .carousel-container.active.modal .carousel-content {
+      height: 0; }
+    .carousel-slider .carousel-container.active.modal .drawer {
+      max-height: 100%;
+      overflow-y: visible; }
+  .carousel-slider .carousel-container.active {
+    display: block; }
+
+@keyframes fade {
+  0% {
+    opacity: 0; }
+  100% {
+    opacity: 1; } }
+
+@media screen and (max-width: 520px) {
+  .carousel-container.active img {
+    max-width: 80%; } }

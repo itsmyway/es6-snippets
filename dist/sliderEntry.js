@@ -63,18 +63,73 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 11);
+/******/ 	return __webpack_require__(__webpack_require__.s = 16);
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ 11:
-/***/ (function(module, exports) {
+/***/ 16:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-console.log("Inside Index.JS");
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+class Slider{
+  constructor(){
+    this.slides = document.querySelectorAll('.carousel-page')
+    this.drawer = document.querySelector('.open')
+    this.addEvents = this.addEvents.bind(this)
+  }
+  addEvents(){
+    Array.from(this.slides).forEach((ul) => {
+      ul.addEventListener('click', this.switchContent.bind(this), false)
+    })
+    this.drawer.addEventListener('click', this.slideDrawer.bind(this), false)
+  }
+  switchContent(e){
+    if(e.target.tagName === 'IMG'){
+      let id = e.target.getAttribute('data-id')
+      let active = document.querySelector('div.carousel-container.active')
+      active.classList.toggle('active')
+      document.querySelector('#'+id).classList.toggle('active')
+    }
+  }
+  slideDrawer(e){
+    e.preventDefault()
+    event.target.closest('.active').classList.add('modal')
+    // document.querySelector('div.active').classList.add('modal')
+  }
+}
+/* harmony export (immutable) */ __webpack_exports__["Slider"] = Slider;
+
+
+let slider = new Slider()
+slider.addEvents()
+
+
+// removeData(data){
+//   let curr = this.head
+//   let prev = this.head
+//
+//   while(curr){
+//     if(curr.data === data){
+//       if(curr === this.head){
+//         this.head = this.head.next
+//       }
+//       if(curr === this.tail){
+//         this.tail = prev
+//       }
+//       prev.next = curr.next
+//       this.numberOfValues--;
+//     } else {
+//       prev = cur
+//     }
+//
+//     curr = curr.next
+//   }
+// }
 
 
 /***/ })
 
 /******/ });
-//# sourceMappingURL=indexEntry.js.map
+//# sourceMappingURL=sliderEntry.js.map

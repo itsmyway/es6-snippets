@@ -6,21 +6,77 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Icon Slider</title>
   <script src="https://use.fontawesome.com/1041bff622.js"></script>
+  <link rel="stylesheet" href="../css/slider.css" >
 </head>
 <body>
-  <div class='icon-slider'>
-    <ul class='icon-list'>
-      <li><img src='https://unsplash.it/200/?random' /></li>
-      <li><img src='https://unsplash.it/200/?random' /></li>
-      <li><img src='https://unsplash.it/200/?random' /></li>
-      <li><img src='https://unsplash.it/200/?random' /></li>
-      <li><img src='https://unsplash.it/200/?random' /></li>
-      <li><img src='https://unsplash.it/200/?random' /></li>
-    </ul>
-    <div class='icon-container'>
+  <div class='carousel-slider'>
+    <div class='carousel-nav'>
+      <ul class='carousel-icons'>
+        <li>
+          <ul class="carousel-page">
+            <li><img data-id="icon-1" src='https://unsplash.it/100/?image=0' /></li>
+            <li><img data-id="icon-2" src='https://unsplash.it/100/?image=1' /></li>
+            <li><img data-id="icon-3" src='https://unsplash.it/100/?image=2' /></li>
+            <li><img src='https://unsplash.it/100/?image=3' /></li>
+            <li><img src='https://unsplash.it/100/?image=4' /></li>
+            <li><img src='https://unsplash.it/100/?random' /></li>
+            <li><img src='https://unsplash.it/100/?random' /></li>
+          </ul>
+        </li>
+        <li>
+          <ul class="carousel-page">
+            <li><img src='https://unsplash.it/100/?random' /></li>
+            <li><img src='https://unsplash.it/100/?random' /></li>
+            <li><img src='https://unsplash.it/100/?random' /></li>
+            <li><img src='https://unsplash.it/100/?random' /></li>
+            <li><img src='https://unsplash.it/100/?random' /></li>
+            <li><img src='https://unsplash.it/100/?random' /></li>
+            <li><img src='https://unsplash.it/100/?random' /></li>
+          </ul>
+        </li>
+      </ul>
+      <a href="#" class="chevron chevron--left"></a>
+      <a href="#" class="chevron chevron--right"></a>
+    </div>
 
+    <div class='carousel-container' id="icon-1">
+      <div class='carousel-content'>
+        <img src='https://unsplash.it/600/400?image=0' />
+      </div>
+      <!-- Drawer -->
+      <div class="drawer">
+        <img src='https://unsplash.it/600/400?image=1' />
+      </div>
+    </div>
+    <div class='carousel-container' id='icon-2'>
+      <div class='carousel-content'>
+        <img src='https://unsplash.it/600/400?image=2' />
+      </div>
+    </div>
+
+    <div class='carousel-container active' id='icon-3'>
+
+      <div class='carousel-content'>
+        <img src='https://unsplash.it/600/400?image=3' />
+        <a href="#" class='open'>Open drawer</a>
+
+      </div>
+      <div class="drawer">
+        <img src='https://unsplash.it/600/400?image=0' />
+      </div>
+    </div>
+    <div class='carousel-container'>
+      <div class='carousel-content'>
+        <img src='https://unsplash.it/600/400?image=2' />
+      </div>
+    </div>
+    <div class='carousel-container'>
+      <div class='carousel-content'>
+        <img src='https://unsplash.it/600/400?image=3' />
+      </div>
     </div>
   </div>
+
   <script src='../dist/sliderEntry.js'>  </script>
 </body>
 </html>

@@ -417,3 +417,15 @@ main();
 // readFileUsingPromise('../src/config.json')
 //   .then((resp) => console.log(resp))
 //   .catch((error) => console.log(error))
+
+//Random generator array length
+// let colors = ["red", "blue", "green", "yellow", "purple"]
+// let buttonEl = document.querySelector('#hello')
+//
+// const randomColorGen = (arr) => {
+// 	return colors[Math.floor(Math.random() * arr.length)]
+// }
+//
+// setInterval(() => {
+//    buttonEl.style.backgroundColor = randomColorGen(colors)
+// }, 1000)
