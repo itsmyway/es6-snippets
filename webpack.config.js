@@ -24,7 +24,8 @@ module.exports = {
 		"generator": './js/sillygenerator.js',
 		"tree": './js/treetraverse.js',
 		"sliderEntry": './js/slider.js',
-    "pageNavEntry": './js/pageNav.js'
+    "pageNavEntry": './js/pageNav.js',
+    "htabsEntry": './js/htabs.js'
 	},
 	output: {
 		path: __dirname + "/dist",

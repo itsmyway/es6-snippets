@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+  .htabs-mob{
+    position: relative;
+  }
+  .options{
+    box-sizing: border-box;
+    display: block;
+    width: 100%;
+    height: 48px;
+    padding-left: 10px;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    outline: none;
+  }
+  .arrow{
+    border: solid black;
+    border-width: 0 3px 3px 0;
+    display: inline-block;
+    padding: 5px;
+    position: absolute;
+    top: 50%;
+    right: 20px;
+    transition: all 0.2s ease-in-out;
+  }
+  .up{
+    transform: rotate(-135deg) translateY(-50%);
+    -webkit-transform: rotate(-135deg) translateY(-50%);
+  }
+  .down{
+    transform: rotate(45deg) translateY(-50%);
+    -webkit-transform: rotate(45deg) translateY(-50%);
+  }
+  </style>
+</head>
+<body>
+  <div class="htabs-mob">
+    <select class="options">
+      <option value="#pricing">Plans and Pricing</option>
+      <option value="#howitworks">How it Works</option>
+      <option value="#businesstypes">Business Types</option>
+      <option value="#dtm">Already use QuickBooks</option>
+      <option value="#faq">FAQs</option>
+    </select>
+    <span class="arrow down"></span>
+  </div>
+  <script src="../dist/htabsEntry.js"></script>
+</body>
+</html>
